@@ -2,6 +2,8 @@
 		 pageEncoding="UTF-8"
 		 isELIgnored="false"
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shop" tagdir="/WEB-INF/tags"%>
 
 
 <div class="visible-xs-block xs-option-container">
@@ -11,47 +13,21 @@
 <!-- Search form -->
 <form class="search" action="/search">
 	<div id="findProducts" class="panel panel-success collapse">
-		<div class= "panel-heading">Поиск товара</div>
+		<div class="panel-heading">Find products</div>
 		<div class="panel-body">
 			<div class="input-group">
-				<input type="text" name="query" class="form-control" placeholder="Введите название товара">
+				<input type="text" name="query" class="form-control" placeholder="Search query" value="${searchForm.query }">
 				<span class="input-group-btn">
-                    <a id="goSearch" class="btn btn-default">Go!</a>
-                  </span>
+					<a id="goSearch" class="btn btn-default">Go!</a>
+				</span>
 			</div>
 			<div class="more-options">
-				<a data-toggle="collapse" href="#searchOptions">Фильтр<span class="caret"></span></a>
+				<a data-toggle="collapse" href="#searchOptions">More filters <span class="caret"></span></a>
 			</div>
 		</div>
-		<div id="searchOptions" class="collapse">
-			<div class= "panel-heading">Категория</div>
-			<div class="panel-body categories">
-				<label> <input type="checkbox" id="allCategories">Все</label>
-				<div class="form-group">
-					<div class="checkbox">
-						<label><input type="checkbox" name="category" value="1" class="search-option">Бакалея (14)</label>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="checkbox">
-						<label><input type="checkbox" name="category" value="2" class="search-option">Фрукты (14)</label>
-					</div>
-				</div>
-			</div>
-			<div class= "panel-heading">Страна производитель</div>
-			<div class="panel-body producers">
-				<label> <input type="checkbox" id="allProducers">Все</label>
-				<div class="form-group">
-					<div class="checkbox">
-						<label><input type="checkbox" name="producer" value="1" class="search-option">Россия (14)</label>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="checkbox">
-						<label><input type="checkbox" name="producer" value="2" class="search-option">Чили (14)</label>
-					</div>
-				</div>
-			</div>
+		<div id="searchOptions" class="collapse ${!searchForm.categoriesEmpty or !searchForm.producersEmpty ? 'in' : ''}">
+			<shop:category-filter categories="${CATEGORY_LIST }" searchForm="${searchForm}" />
+			<shop:producer-filter producers="${PRODUCER_LIST }" searchForm="${searchForm}" />
 		</div>
 	</div>
 </form>
@@ -60,12 +36,11 @@
 <div id="productCatalog" class="panel panel-success collapse">
 	<div class="panel-heading">Каталог товаров</div>
 	<div class="list-group">
-		<a href="/products" class="list-group-item"> <span class="badge">14</span> Бакалея
-		</a> <a href="/products" class="list-group-item"> <span class="badge">14</span> Мясо
-		</a> <a href="/products" class="list-group-item"> <span class="badge">14</span> Напитки
-		</a> <a href="/products" class="list-group-item"> <span class="badge">14</span> Фрукты
-		</a> <a href="/products" class="list-group-item"> <span class="badge">14</span> Овощи
-		</a>
+		<c:forEach var="category" items="${CATEGORY_LIST }">
+			<a href="/products${category.url }" class="list-group-item ${selectedCategoryUrl == category.url ? 'active' : '' }">
+				<span class="badge">${category.productCount}</span> ${category.name}
+			</a>
+		</c:forEach>
 	</div>
 </div>
 <!-- /Categories -->

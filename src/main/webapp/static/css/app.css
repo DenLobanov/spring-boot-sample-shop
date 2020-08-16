@@ -138,5 +138,6 @@ footer {
 	background: url('../img/loading.gif') no-repeat center center;
 	height: 38px;
 	width: 38px;
-	display: block;
+	display: inline-block;
+	border: none;
 }

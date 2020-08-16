@@ -9,11 +9,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<div id="productList">
-	<jsp:include page="../fragment/product-list.jsp" />
-	<div class="text-center">
-		<img id="loadMoreIndicator" src="/static/img/loading.gif" class="hidden" alt="Loading...">
-		<a id="loadMore" class="btn btn-success">Показать больше</a>
+<div id="productList" data-page-count="${pageCount}" data-page-number="1">
+	<div class="row">
+		<jsp:include page="../fragment/product-list.jsp" />
 	</div>
+	<c:if test="${pageCount > 1 }">
+		<div class="text-center hidden-print">
+			<a id="loadMore" class="btn btn-success">Показать больше</a>
+		</div>
+	</c:if>
 </div>
 <shop:add-product-popup />

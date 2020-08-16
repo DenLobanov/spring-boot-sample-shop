@@ -1,5 +1,6 @@
 package com.example.shop.listener;
 
+import com.example.shop.Constants;
 import com.example.shop.service.impl.ServiceManager;
 
 
@@ -15,6 +16,8 @@ public class ShopApplicationListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         try {
             serviceManager = ServiceManager.getInstance(sce.getServletContext());
+            sce.getServletContext().setAttribute(Constants.CATEGORY_LIST, serviceManager.getProductService().listAllCategories());
+            sce.getServletContext().setAttribute(Constants.PRODUCER_LIST, serviceManager.getProductService().listAllProducers());
         } catch (RuntimeException e) {
             throw e;
         }
