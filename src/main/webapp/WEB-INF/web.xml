@@ -6,16 +6,35 @@
 		<filter-name>ErrorHandlerFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
+	<filter-mapping>
+		<filter-name>SetCurrentRequestUrlFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<filter-mapping>
 		<filter-name>TrimResponseFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter-mapping>
 		<filter-name>AutoRestoreShoppingCartFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CheckAuthentificationFilter</filter-name>
+		<url-pattern>/order</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckAuthentificationFilter</filter-name>
+		<url-pattern>/my-orders</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckAuthentificationFilter</filter-name>
+		<url-pattern>/ajax/html/more/my-orders</url-pattern>
+	</filter-mapping>
+
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>

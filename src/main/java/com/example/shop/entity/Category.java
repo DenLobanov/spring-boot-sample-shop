@@ -1,11 +1,34 @@
 package com.example.shop.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "category")
 public class Category extends AbstractEntity<Integer> {
-	private static final long serialVersionUID = -7331864534223196661L;
+
+	private static final long serialVersionUID = 7975390909003433335L;
+	@Id
+	private Integer id;
 	private String name;
 	private String url;
+	@Column(name = "product_count")
 	private Integer productCount;
+
+	public Category() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

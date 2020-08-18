@@ -1,10 +1,13 @@
 package com.example.shop.exception;
 
-public class ValidationException extends IllegalArgumentException {
+import javax.servlet.http.HttpServletResponse;
 
-    private static final long serialVersionUID = -3956768424512597143L;
 
-    public ValidationException(String e) {
-        super(e);
-    }
+public class ValidationException extends AbstractApplicationException {
+
+	private static final long serialVersionUID = 3258530133673179573L;
+
+	public ValidationException(String s) {
+		super(s, HttpServletResponse.SC_BAD_REQUEST);
+	}
 }

@@ -14,10 +14,10 @@ import java.io.IOException;
 @WebServlet("/sign-out")
 public class SignOutController extends AbstractController {
 
-	private static final long serialVersionUID = -6480718664885786844L;
+	private static final long serialVersionUID = -3086795295572975203L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getSession().invalidate();
 		RoutingUtils.redirect("/products", req, resp);
 	}

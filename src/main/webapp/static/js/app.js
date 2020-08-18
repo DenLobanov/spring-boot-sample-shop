@@ -7,6 +7,9 @@
 		initSearchForm();
 		$('#goSearch').click(goSearch);
 		$('.remove-product').click(removeProductFromCart);
+		$('.post-request').click(function(){
+			postRequest($(this).attr('data-url'));
+		});
 	};
 
 	var showAddProductPopup = function (){
@@ -30,6 +33,11 @@
 	var initBuyBtn = function(){
 		$('.buy-btn').click(showAddProductPopup);
 	};
+	var postRequest = function(url){
+		var form = '<form id="postRequestForm" action="'+url+'" method="post"></form>';
+		$('body').append(form);
+		$('#postRequestForm').submit();
+	};
 	var addProductToCart = function (){
 		var idProduct = $('#addProductPopup').attr('data-id-product');
 		var count = $('#addProductPopup .count').val();
@@ -46,11 +54,16 @@
 				$('#currentShoppingCart .total-count').text(data.totalCount);
 				$('#currentShoppingCart .total-cost').text(data.totalCost);
 				$('#currentShoppingCart').removeClass('hidden');
+				convertLoaderToButton(btn, 'btn-primary', addProductToCart);
 				$('#addProductPopup').modal('hide');
 			},
-			error : function(data) {
+			error : function(xhr) {
 				convertLoaderToButton(btn, 'btn-primary', addProductToCart);
-				alert('Error');
+				if (xhr.status == 400) {
+					alert(xhr.responseJSON.message);
+				} else {
+					alert('Error');
+				}
 			}
 		});
 	};
@@ -103,10 +116,40 @@
 				} else {
 					btn.remove();
 				}
+				initBuyBtn();
 			},
 			error : function(data) {
 				convertLoaderToButton(btn, 'btn-success', loadMoreProducts);
 				alert('Error');
+			}
+		});
+	};
+
+	var loadMoreMyOrders = function (){
+		var btn = $('#loadMoreMyOrders');
+		convertButtonToLoader(btn, 'btn-success');
+		var pageNumber = parseInt($('#myOrders').attr('data-page-number'));
+		var url = '/ajax/html/more/my-orders?page=' + (pageNumber + 1);
+		$.ajax({
+			url : url,
+			success : function(html) {
+				$('#myOrders tbody').append(html);
+				pageNumber++;
+				var pageCount = parseInt($('#myOrders').attr('data-page-count'));
+				$('#myOrders').attr('data-page-number', pageNumber);
+				if (pageNumber < pageCount) {
+					convertLoaderToButton(btn, 'btn-success', loadMoreMyOrders);
+				} else {
+					btn.remove();
+				}
+			},
+			error : function(xhr) {
+				convertLoaderToButton(btn, 'btn-success', loadMoreMyOrders);
+				if (xhr.status == 401) {
+					window.location.href = '/sign-in';
+				} else {
+					alert('Error');
+				}
 			}
 		});
 	};

@@ -1,18 +1,42 @@
 package com.example.shop.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
 
-public class Order extends AbstractEntity<Long>{
-	private static final long serialVersionUID = 1147697076956672194L;
+@Entity
+@Table(name = "\"order\"")
+public class Order extends AbstractEntity<Long> {
+
+	private static final long serialVersionUID = 7420059776062452730L;
+	@Id
+	@SequenceGenerator(name = "order_seq_generator", sequenceName = "order_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq_generator")
+	private Long id;
+	@Column(name = "id_account")
 	private Integer idAccount;
+	@Transient
 	private List<OrderItem> items;
 	private Timestamp created;
 
 	public Order() {
 
+	}
+
+	public Order(Integer idAccount, Timestamp created) {
+		super();
+		this.idAccount = idAccount;
+		this.created = created;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getIdAccount() {

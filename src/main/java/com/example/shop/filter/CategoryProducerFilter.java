@@ -1,8 +1,9 @@
 package com.example.shop.filter;
 
+
 import com.example.shop.Constants;
 import com.example.shop.service.ProductService;
-import com.example.shop.service.impl.ServiceManager;
+import com.example.shop.util.SpringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,7 +19,7 @@ public class CategoryProducerFilter extends AbstractFilter {
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		productService = ServiceManager.getInstance(filterConfig.getServletContext()).getProductService();
+		productService = SpringUtils.getInstance(filterConfig.getServletContext(), ProductService.class);
 	}
 	
 	@Override

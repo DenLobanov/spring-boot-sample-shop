@@ -1,16 +1,41 @@
 package com.example.shop.entity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
+@Entity
+@Table(name = "product")
 public class Product extends AbstractEntity<Integer> {
-	private static final long serialVersionUID = -6007695541358096493L;
+
+	private static final long serialVersionUID = -7888094538670939829L;
+	@Id
+	private Integer id;
 	private String name;
 	private String description;
+	@Column(name = "image_link")
 	private String imageLink;
 	private BigDecimal price;
-	private String category;
-	private String producer;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_category", nullable = false)
+	private Category category;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_producer", nullable = false)
+	private Producer producer;
+
+	public Product() {
+		super();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -45,18 +70,18 @@ public class Product extends AbstractEntity<Integer> {
 	}
 
 	public String getCategory() {
-		return category;
+		return category.getName();
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
 	public String getProducer() {
-		return producer;
+		return producer.getName();
 	}
 
-	public void setProducer(String producer) {
+	public void setProducer(Producer producer) {
 		this.producer = producer;
 	}
 

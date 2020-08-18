@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<taglib>
+	<tlib-version>l.0</tlib-version>
+	<jsp-version>2.3</jsp-version>
+	<short-name>tags</short-name>
+	<tag>
+		<name>urlEncode</name>
+		<tag-class>com.example.shop.tag.URLEncodeTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<type>java.lang.String</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

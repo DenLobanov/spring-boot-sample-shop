@@ -1,5 +1,7 @@
 package com.example.shop.servlet.ajax;
 
+
+
 import com.example.shop.Constants;
 import com.example.shop.entity.Product;
 import com.example.shop.form.SearchForm;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
 
 @WebServlet("/ajax/html/more/search")
 public class SearchResultsMoreController extends AbstractController {

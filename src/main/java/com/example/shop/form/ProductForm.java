@@ -1,10 +1,9 @@
 package com.example.shop.form;
 
-
 public class ProductForm {
 	private Integer idProduct;
 	private Integer count;
-
+	
 	public ProductForm() {
 		super();
 	}
@@ -24,5 +23,9 @@ public class ProductForm {
 	}
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	@Override
+	public String toString() {
+		return String.format("ProductForm [idProduct=%s, count=%s]", idProduct, count);
 	}
 }
